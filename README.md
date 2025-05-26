@@ -18,9 +18,9 @@ Le but est d’automatiser le stationnement en détectant les places disponibles
 - Ouverture automatique de la barrière d’entrée
 
 ## Problématiques
--Comment automatiser l’ouverture/fermeture de la porte ?
--Comment détecter automatiquement la présence ou
--l’absence d’un véhicule ?
+- Comment automatiser l’ouverture/fermeture de la porte ?
+- Comment détecter automatiquement la présence ou
+- l’absence d’un véhicule ?
 
 ## 
 Grace à ce projet, nous apprendrons à automatiser un parking avec Arduino, tout en utilisant des composants comme l’écran OLED, le servomoteur, les capteurs ultrasons. A la suite de ce projet, plusieurs améliorations peuvent être envisagées pour le rendre plus performant, comme :
