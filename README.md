@@ -18,8 +18,7 @@ Le but est d’automatiser le stationnement en détectant les places disponibles
 - Ouverture automatique de la barrière d’entrée
 
 ## Problématiques
--Comment automatiser l’ouverture/fermeture de la
-porte ?
+-Comment automatiser l’ouverture/fermeture de la porte ?
 -Comment détecter automatiquement la présence ou
 -l’absence d’un véhicule ?
 
