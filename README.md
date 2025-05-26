@@ -24,5 +24,5 @@ Le but est d’automatiser le stationnement en détectant les places disponibles
 
 ## 
 Grace à ce projet, nous apprendrons à automatiser un parking avec Arduino, tout en utilisant des composants comme l’écran OLED, le servomoteur, les capteurs ultrasons. A la suite de ce projet, plusieurs améliorations peuvent être envisagées pour le rendre plus performant, comme :
-*Intégration de badge RFID
-*Connexion à une application mobile
+- Intégration de badge RFID
+- Connexion à une application mobile
