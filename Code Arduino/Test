@@ -1,0 +1,89 @@
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <Servo.h>
+
+#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 64
+#define OLED_RESET -1
+
+Adafruit_SSD1306 display(SCREEN_WIDTH, SCREEN_HEIGHT, &Wire, OLED_RESET);
+
+// Définition des broches des capteurs
+const int trigEntree = 2;
+const int echoEntree = 3;
+const int trigSortie = 4;
+const int echoSortie = 5;
+
+// Définition des broches des servos
+const int servoEntreePin = 6;
+const int servoSortiePin = 7;
+
+Servo servoEntree;
+Servo servoSortie;
+
+int placesDispo = 5;
+
+long lireDistance(int trigPin, int echoPin) {
+ digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  long duree = pulseIn(echoPin, HIGH);
+  long distance = duree * 0.034 / 2;
+  return distance;
+}
+
+void setup() {
+  Serial.begin(9600);
+
+  pinMode(trigEntree, OUTPUT);
+  pinMode(echoEntree, INPUT);
+  pinMode(trigSortie, OUTPUT);
+  pinMode(echoSortie, INPUT);
+
+  servoEntree.attach(servoEntreePin);
+  servoSortie.attach(servoSortiePin);
+
+  servoEntree.write(0);  // barrière fermée
+  servoSortie.write(0);  // barrière fermée
+
+if (!display.begin(SSD1306_SWITCHCAPVCC, 0x3C)) {
+    Serial.println("Erreur écran OLED");
+    while (true);
+  }
+
+  display.clearDisplay();
+  display.setTextSize(2);
+  display.setTextColor(SSD1306_WHITE);
+}
+
+void loop() {
+  long distanceEntree = lireDistance(trigEntree, echoEntree);
+  long distanceSortie = lireDistance(trigSortie, echoSortie);
+
+  if (distanceEntree < 10 && placesDispo > 0) {
+    servoEntree.write(90);     // ouvrir barrière
+    delay(2000);               // attendre 2s
+    servoEntree.write(0);      // fermer barrière
+    placesDispo--;
+  }
+
+  if (distanceSortie < 10 && placesDispo < 4) {
+servoSortie.write(90);     // ouvrir barrière
+    delay(2000);               // attendre 2s
+    servoSortie.write(0);      // fermer barrière
+    placesDispo++;
+  }
+
+  // Affichage sur OLED
+  display.clearDisplay();
+  display.setCursor(0, 20);
+  display.print("Places D:");
+  display.setCursor(0, 45);
+  display.print(placesDispo);
+  display.display();
+
+  delay(500);
+}
